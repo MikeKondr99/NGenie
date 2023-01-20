@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33213.308
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NGenieBack", "NGenieBack\NGenieBack.csproj", "{0A74BF72-B0A3-47AD-9A08-9F185E1AE2B3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0A74BF72-B0A3-47AD-9A08-9F185E1AE2B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A74BF72-B0A3-47AD-9A08-9F185E1AE2B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A74BF72-B0A3-47AD-9A08-9F185E1AE2B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A74BF72-B0A3-47AD-9A08-9F185E1AE2B3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7C056E00-E201-4EE2-B011-EC4153DB7F3C}
+	EndGlobalSection
+EndGlobal
