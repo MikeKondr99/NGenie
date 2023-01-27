@@ -7,20 +7,20 @@ using NGenieBack.Auth;
 using NGenieBack.Database;
 using NGenieBack.Database.Models;
 using Microsoft.AspNetCore.OData.Routing.Controllers;
+using Microsoft.AspNetCore.OData.Query;
 
-[Route("api/auth")]
-[ApiController]
-public class AuthenticationController : Controller
+namespace NGenieBack.Controllers;
+
+public class AuthController : ODataController
 {
-    [AllowAnonymous]
-    [HttpPost]
-    public ActionResult<string> Post (
-        AuthenticationRequest authRequest,
+    [HttpPost("odata/CreateToken")]
+    public ActionResult<string> CreateToken (
+        [FromBody] AuthenticationRequest authRequest,
         [FromServices] IJwtSigningEncodingKey signingEncodingKey,
         [FromServices] Context context
     )
     {
-        var u = context.Users.Find(authRequest.Name);
+        var u = context.Users.Find(authRequest.Username);
         if (u is not User user) 
             return Unauthorized();
 
@@ -32,7 +32,7 @@ public class AuthenticationController : Controller
         // Генерируем JWT.
         var claims = new Claim[]
         {
-            new Claim(ClaimTypes.NameIdentifier, authRequest.Name)
+            new Claim(ClaimTypes.NameIdentifier, authRequest.Username)
         };
         var token = new JwtSecurityToken(
             issuer: "DemoApp",
@@ -48,4 +48,12 @@ public class AuthenticationController : Controller
         return jwtToken;
     }
 
+
 }
+
+public interface IHasKey<T>
+{
+    public T Id { get; set; }
+}
+
+

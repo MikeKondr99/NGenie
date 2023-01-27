@@ -1,9 +1,16 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using NGenieBack.Controllers;
+using System.ComponentModel.DataAnnotations;
+using System.Runtime.Serialization;
 
 namespace NGenieBack.Database.Models;
 
-public class Article
+public class Article : IHasKey<Guid>
 {
     [Key]
-    public Guid Id { get; init; }
+    public required Guid Id { get; set; }
+
+    [IgnoreDataMember]
+    public required string OwnerId { get; init; }
+    public required User Owner { get; init; }
+    public required string Text { get; init; }
 }
