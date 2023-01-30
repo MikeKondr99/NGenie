@@ -17,12 +17,19 @@ import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NavbarComponent } from './navbar/navbar.component';
+import { DocumentComponent } from './document/document.component';
+import { UserBadgeComponent } from './user-badge/user-badge.component';
+import { NzSwitchModule } from 'ng-zorro-antd/switch';
 
 registerLocaleData(ru);
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    NavbarComponent,
+    DocumentComponent,
+    UserBadgeComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,6 +43,7 @@ registerLocaleData(ru);
     NzPageHeaderModule,
     NzBreadCrumbModule,
     NzAvatarModule,
+    NzSwitchModule,
     NzButtonModule,
   ],
   providers: [

@@ -1,0 +1,44 @@
+<div class="relative w-full md:max-w-3xl md:mx-auto lg:max-w-4xl lg:pb-28">
+    <nz-breadcrumb class="my-5 mx-6 text-black" nzSeparator=">">
+        <nz-breadcrumb-item class="">
+            <span class="inline-block" nz-icon nzType="home"></span>
+        </nz-breadcrumb-item>
+        <nz-breadcrumb-item class="c">
+            <span
+                class="whitespace-nowrap inline-block overflow-ellipsis max-w-xs overflow-hidden hover:max-w-none -mb-1.5">
+                Новые технологии в разработке программных систем
+            </span>
+        </nz-breadcrumb-item>
+        <nz-breadcrumb-item>
+            <span
+                class="whitespace-nowrap inline-block overflow-ellipsis max-w-xs overflow-hidden hover:max-w-none -mb-1.5">
+                Модуль 1
+            </span>
+        </nz-breadcrumb-item>
+        <nz-breadcrumb-item>
+            <span
+                class="whitespace-nowrap inline-block overflow-ellipsis max-w-xs overflow-hidden hover:max-w-none -mb-1.5">
+                Задача 1
+            </span>
+        </nz-breadcrumb-item>
+    </nz-breadcrumb>
+    <div class="relative w-full px-6 py-12 bg-white shadow-xl shadow-slate-700/10 ring-1 ring-gray-900/5 md:max-w-3xl md:mx-auto lg:max-w-4xl lg:pt-16 lg:pb-28">
+
+        <button nz-button nzType="primary" [nzSize]="'large'" nzShape="circle" class="float-right sticky top-11" >
+            <span *ngIf="editMode" (click)="toggleEdit()" nz-icon nzType="edit" nzTheme="outline"></span>
+            <span *ngIf="!editMode" (click)="toggleEdit()" nz-icon nzType="file-text" nzTheme="outline"></span>
+        </button>
+        <!-- Редактор -->
+        <div *ngIf="editMode" class="max-w-prose mx-auto lg:text-lg">
+            <textarea [(ngModel)]="markdown" nz-input class="w-full min-h-screen"> 
+            </textarea>
+        </div>
+        <!-- Документ -->
+        <div *ngIf="!editMode" class="max-w-prose mx-auto lg:text-lg">
+            <app-user-badge></app-user-badge>
+            <article [innerHTML]="html" class="prose mt-3">
+
+            </article>
+        </div>
+    </div>
+</div>
