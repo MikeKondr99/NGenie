@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
-.c > span {
-    @apply truncate
+
+.my-prose {
+    @apply prose;
+    @apply prose-code:before:content-none;
+    @apply prose-code:after:content-none;
+    @apply prose-code:bg-gray-50; 
+    @apply prose-code:py-0.5;
+    @apply prose-code:px-1;
+    @apply prose-code:rounded-md;
 }
+
+

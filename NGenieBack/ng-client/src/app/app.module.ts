@@ -21,6 +21,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { DocumentComponent } from './document/document.component';
 import { UserBadgeComponent } from './user-badge/user-badge.component';
 import { NzSwitchModule } from 'ng-zorro-antd/switch';
+import { MarkdownModule } from 'ngx-markdown'
 
 registerLocaleData(ru);
 
@@ -45,6 +46,7 @@ registerLocaleData(ru);
     NzAvatarModule,
     NzSwitchModule,
     NzButtonModule,
+    MarkdownModule.forRoot(),
   ],
   providers: [
     { provide: NZ_I18N, useValue: ru_RU }
