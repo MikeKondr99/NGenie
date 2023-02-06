@@ -11,9 +11,10 @@ using Microsoft.AspNetCore.OData.Query;
 
 namespace NGenieBack.Controllers;
 
-public class AuthController : ODataController
+[Route("api/auth")]
+public class AuthController : Controller
 {
-    [HttpPost("odata/CreateToken")]
+    [HttpPost]
     public ActionResult<string> CreateToken (
         [FromBody] AuthenticationRequest authRequest,
         [FromServices] IJwtSigningEncodingKey signingEncodingKey,

@@ -9,7 +9,6 @@ using SQLitePCL;
 using NGenieBack.Database;
 using Microsoft.AspNetCore.OData;
 using Microsoft.OData.Edm;
-using NGenieBack.OData;
 using FluentValidation;
 using Microsoft.AspNetCore.Identity;
 using FluentValidation.AspNetCore;
@@ -31,12 +30,7 @@ services.AddDbContext<Context>(options =>
 
 services.AddJwtAuth();
 
-services.AddControllers()
-    .AddOData(options =>
-    {
-        options.Select().Filter().OrderBy().Count().SetMaxTop(null);
-        options.AddRouteComponents("api/odata", Edm.Model());
-    });
+services.AddControllers();
 
 // Подключаем Swagger
 services.AddSwaggerGen();

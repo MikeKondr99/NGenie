@@ -7,13 +7,23 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Client\**" />
+    <Compile Remove="files\**" />
+    <Content Remove="Client\**" />
+    <Content Remove="files\**" />
+    <EmbeddedResource Remove="Client\**" />
+    <EmbeddedResource Remove="files\**" />
+    <None Remove="Client\**" />
+    <None Remove="files\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="db.sqlite" />
     <None Remove="db.sqlite-shm" />
     <None Remove="db.sqlite-wal" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Client\" />
     <Folder Include="Services\" />
   </ItemGroup>
 

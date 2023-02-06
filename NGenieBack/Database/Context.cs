@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Sqlite;
 using NGenieBack.Auth;
 using NGenieBack.Database.Models;
-using NGenieBack.Primitives;
 using SQLitePCL;
 using System.Reflection.Emit;
 
@@ -12,7 +11,7 @@ namespace NGenieBack.Database;
 public class Context : DbContext
 {
     public DbSet<User> Users => Set<User>();
-    public DbSet<Article> Articles => Set<Article>();
+    public DbSet<Document> Documents => Set<Document>();
 
     public Context()
     {
@@ -32,7 +31,7 @@ public class Context : DbContext
         // Настройка
         modelBuilder.Entity<User>().Property(b => b.Roles).HasConversion(
             r => String.Join(", ", r),
-            s => s.Split(',',StringSplitOptions.None).Select(x => (UserRole)Enum.Parse<UserRole>(x.Trim())).ToArray()
+            s => Enum.Parse<UserRole>(s)
         );
 
         // Заполняем
@@ -48,26 +47,11 @@ public class Context : DbContext
                     f.Random.Number(8, 25), // Длина пароля
                     f.Random.Bool(0.3f)),  // Запоминающийся 30%
                 u.PasswordSalt))
-            .RuleFor(u => u.Roles, f => new UserRole[] { f.PickRandomWithout(UserRole.Admin) })
+            .RuleFor(u => u.Roles, f => f.PickRandom(new UserRole[] {UserRole.Teacher,UserRole.Student}))
             .GenerateBetween(40, 60);
 
-        var teachers = users.Where(u => u.Roles.Contains(UserRole.Teacher)).ToList();
-
-        var articles = new Faker<Article>(LOCALE)
-            .RuleFor(a => a.Id, f => f.Random.Guid())
-            .RuleFor(a => a.OwnerId, f => f.PickRandom(teachers).Id)
-            .RuleFor(a => a.Text, f =>
-                $"# {f.Hacker.Phrase()}\n" +
-                $"{f.Lorem.Text()}"
-            )
-            .GenerateBetween(60, 80);
-            
-
-
-
-            
-
+        var teachers = users.Where(u => u.Roles.HasFlag(UserRole.Teacher)).ToList();
         modelBuilder.Entity<User>().HasData(users);
-        modelBuilder.Entity<Article>().HasData(articles);
     }
+
 }
