@@ -5,9 +5,9 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using NGenieBack.Auth;
 using NGenieBack.Database;
-using NGenieBack.Database.Models;
 using Microsoft.AspNetCore.OData.Routing.Controllers;
 using Microsoft.AspNetCore.OData.Query;
+using NGenieBack.Database.Models;
 
 namespace NGenieBack.Controllers;
 

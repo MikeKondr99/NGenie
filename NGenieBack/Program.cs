@@ -17,6 +17,7 @@ using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using NGenieBack.Auth;
+using NGenieBack.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
@@ -39,6 +40,7 @@ services.AddSwaggerGen();
 services.AddFluentValidationAutoValidation();
 //services.AddValidatorsFromAssemblyContaining<UsernameValidator>();
 
+services.AddScoped<DocumentRepository>();
 // !Build
 // ----------------------------
 var app = builder.Build();

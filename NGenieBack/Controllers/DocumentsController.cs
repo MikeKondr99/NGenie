@@ -1,12 +1,11 @@
 ﻿using NGenieBack.Database;
-using NGenieBack.Database.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using FluentValidation.AspNetCore;
 using NGenieBack.Repositories;
-using NGenieBack.Dto;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using System.Text;
 
 namespace NGenieBack.Controllers;
 
@@ -27,19 +26,21 @@ public class DocumentsController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> PostAsync([FromBody] DocumentPostDto o)
+    public async Task<IActionResult> PostAsync([FromBody] object o)
     {
-        return Ok(await _repos.CreateAsync(o.Create())).Or(BadRequest());
+        throw new NotImplementedException();
+        //return Ok(await _repos.CreateAsync(o.Create())).Or(BadRequest());
     }
 
     [HttpPatch("{id}")]
-    public async Task<IActionResult> PatchAsync([FromRoute] Guid id, [FromBody] DocumentPatchDto o)
+    public async Task<IActionResult> PatchAsync([FromRoute] Guid id, [FromBody] object o)
     {
-        if(await _repos.GetAsync(id) is Document doc)
-        {
-            return Ok(await _repos.UpdateAsync(o.Patch(doc))).Or(NotFound());
-        }
-        return NotFound();
+        throw new NotImplementedException();
+        //if(await _repos.GetAsync(id) is Document doc)
+        //{
+        //    return Ok(await _repos.UpdateAsync(o.Patch(doc))).Or(NotFound());
+        //}
+        //return NotFound();
 
     }
 
@@ -57,9 +58,6 @@ public static class OkExtentions
 {
     public static IActionResult Or(this OkObjectResult ok, IActionResult alt)
     {
-        if (ok.Value is null)
-            return alt;
-        else
-            return ok;
+        return ok.Value is null ? alt : ok;
     }
 }

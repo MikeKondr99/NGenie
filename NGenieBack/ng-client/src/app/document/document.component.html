@@ -1,4 +1,4 @@
-<div class="relative w-full md:max-w-3xl md:mx-auto lg:max-w-4xl lg:pb-28">
+<div class="">
     <nz-breadcrumb class="my-5 mx-6 text-black" nzSeparator=">">
         <nz-breadcrumb-item class="">
             <span class="inline-block" nz-icon nzType="home"></span>
@@ -22,22 +22,53 @@
             </span>
         </nz-breadcrumb-item>
     </nz-breadcrumb>
-    <div class="relative w-full px-6 py-12 bg-white shadow-xl shadow-slate-700/10 ring-1 ring-gray-900/5 md:max-w-3xl md:mx-auto lg:max-w-4xl lg:pt-16 lg:pb-28">
+
+    <div *ngIf="!editMode" class="relative w-full px-6 py-12 bg-white shadow-xl shadow-slate-700/10 ring-1 ring-gray-900/5 md:max-w-3xl md:mx-auto lg:max-w-4xl lg:pt-16 lg:pb-28">
         <button (click)="toggleEdit()" nz-button nzType="primary" [nzSize]="'large'" nzShape="circle" class="float-right sticky top-11" >
             <span *ngIf="editMode" nz-icon nzType="edit" nzTheme="outline"></span>
             <span *ngIf="!editMode" nz-icon nzType="file-text" nzTheme="outline"></span>
         </button>
+        <div class="flex">
+            <!-- Редактор -->
+            <!-- Документ -->
+            <div class="max-w-prose mx-auto lg:text-lg">
+                <app-user-badge></app-user-badge>
+                <article class="mt-3 my-prose prose">
+                    <markdown katex emoji mermaid [data]="markdown"></markdown>
+                </article>
+            </div>
+        </div>
+    </div>
+
+    <div class="flex" *ngIf="editMode">
         <!-- Редактор -->
-        <div *ngIf="editMode" class="max-w-prose mx-auto lg:text-lg">
-            <textarea [(ngModel)]="markdown" nz-input class="w-full min-h-screen resize-none overflow-clip"> 
+        <div class="mx-auto lg:text-lg">
+            <textarea [(ngModel)]="markdown" nz-input class="min-h-screen p-4 resize-none overflow-clip"> 
             </textarea>
         </div>
-        <!-- Документ -->
-        <div *ngIf="!editMode" class="max-w-prose mx-auto lg:text-lg">
-            <app-user-badge></app-user-badge>
-            <article class="mt-3 my-prose prose">
-                <markdown katex emoji mermaid [data]="markdown"></markdown>
-            </article>
+        <div class="h-screen max-h-screen relative w-full px-6 py-12 bg-white shadow-xl shadow-slate-700/10 ring-1 ring-gray-900/5 md:max-w-3xl md:mx-auto lg:max-w-4xl lg:pt-16 lg:pb-28">
+            <button (click)="toggleEdit()" nz-button nzType="primary" [nzSize]="'large'" nzShape="circle" class="float-right sticky top-11" >
+                <span *ngIf="editMode" nz-icon nzType="edit" nzTheme="outline"></span>
+                <span *ngIf="!editMode" nz-icon nzType="file-text" nzTheme="outline"></span>
+            </button>
+            <div class="flex relative">
+                <div class="absolute w-100 h-100">
+
+                <div class="max-w-prose mx-auto lg:text-lg">
+                    <app-user-badge></app-user-badge>
+                    <article class="mt-3 my-prose prose max-h-screen">
+                        <markdown katex emoji mermaid [data]="markdown"></markdown>
+                    </article>
+                </div>
+                </div>
+                <!-- Документ -->
+<!--                 <div class="max-w-prose mx-auto lg:text-lg">
+                    <app-user-badge></app-user-badge>
+                    <article class="mt-3 my-prose prose max-h-screen">
+                        <markdown katex emoji mermaid [data]="markdown"></markdown>
+                    </article>
+                </div> -->
+            </div>
         </div>
     </div>
 </div>

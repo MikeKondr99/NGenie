@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 })
 export class DocumentComponent {
 
-  editMode: boolean = false;
+  editMode: boolean = true;
   markdown: string = 
 `
 # Первичное ознакомление со средствами разработки
