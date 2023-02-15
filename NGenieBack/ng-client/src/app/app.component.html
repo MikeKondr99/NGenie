@@ -1,7 +1,10 @@
-<nz-layout class="min-h-screen">
+<nz-layout>
   <app-navbar></app-navbar>
-  <nz-content class="">
-    <app-document></app-document>
+  <nz-content class="grow relative">
+    <div class="absolute w-full h-full top-0 left-0">
+      <app-document></app-document>
+    </div>
   </nz-content>
-  <nz-footer>footer</nz-footer>
 </nz-layout>
+
+

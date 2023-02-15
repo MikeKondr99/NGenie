@@ -8,7 +8,7 @@ import { ru_RU } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
 import ru from '@angular/common/locales/ru';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IconsProviderModule } from './icons-provider.module';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
@@ -21,7 +21,11 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { DocumentComponent } from './document/document.component';
 import { UserBadgeComponent } from './user-badge/user-badge.component';
 import { NzSwitchModule } from 'ng-zorro-antd/switch';
-import { MarkdownModule } from 'ngx-markdown'
+import { MarkdownModule, MarkedOptions } from 'ngx-markdown'
+import {NzInputModule} from "ng-zorro-antd/input";
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+  import { NzUploadModule } from 'ng-zorro-antd/upload';
+import { markedOptionsFactory } from './market-options-factory';
 
 registerLocaleData(ru);
 
@@ -39,14 +43,23 @@ registerLocaleData(ru);
     HttpClientModule,
     BrowserAnimationsModule,
     IconsProviderModule,
+    NzUploadModule,
     NzLayoutModule,
     NzMenuModule,
     NzPageHeaderModule,
     NzBreadCrumbModule,
     NzAvatarModule,
+    NzToolTipModule,
     NzSwitchModule,
     NzButtonModule,
-    MarkdownModule.forRoot(),
+    MarkdownModule.forRoot({
+      loader: HttpClient,
+      markedOptions: {
+        provide: MarkedOptions,
+        useFactory: markedOptionsFactory,
+      },
+    }),
+    NzInputModule,
   ],
   providers: [
     { provide: NZ_I18N, useValue: ru_RU }

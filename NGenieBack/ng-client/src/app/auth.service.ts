@@ -10,7 +10,6 @@ export class AuthService {
   constructor(private odata: ODataServiceFactory) { }
 
   createToken(username:string,password:string) {
+  }
 
-    let auth = this.odata.entitySet("Auth")
-    return auth.entities().q
 }
