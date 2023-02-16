@@ -60,7 +60,8 @@ public class Context : DbContext
             .RuleFor(u => u.Id, f => Guid.NewGuid())
             .RuleFor(d => d.OwnerId, (f, d) => f.PickRandom(teachers).Id)
             .RuleFor(d => d.Title, f => { iter.MoveNext(); return Path.GetFileNameWithoutExtension(iter.Current); })
-            .RuleFor(d => d.Text, f => File.ReadAllText(iter.Current));
+            .RuleFor(d => d.Text, f => File.ReadAllText(iter.Current))
+            .Generate(files.Length);
             //.RuleFor(d => d.Class)  // null
             //.RuleFor(d => d.OrderInClass)  // 0
 
