@@ -1,23 +1,20 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ODataServiceFactory } from 'angular-odata';
-import { map, tap} from 'rxjs';
-import { MdDocument } from './types';
+import { firstValueFrom, map, tap} from 'rxjs';
+import { MdDocument, MdDocumentPatch } from './types';
 
 @Injectable({
   providedIn:'root',
 })
 export class DocumentService {
 
-  constructor(private odata: ODataServiceFactory) { }
+  constructor(private http: HttpClient) { }
 
   get(guid:string) {
-    let documents = this.odata.entitySet("Documents")
-    return documents.entity(guid).query(q => q.expand({
-        owner: {}
-    }))
-    .fetchEntity().pipe(
-      map(x => x as MdDocument),
-      tap(x => console.log(JSON.stringify(x,null,2)))
-    );
+    return this.http.get<MdDocument>(`https://localhost:7020/api/docs/${guid}`)
+  }
+
+  patch(guid:string,body: MdDocumentPatch) {
+    return this.http.patch<MdDocument>(`https://localhost:7020/api/docs/${guid}`,body)
   }
 }

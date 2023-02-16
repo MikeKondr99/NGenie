@@ -4,6 +4,10 @@ export interface MdDocument {
     text: string,
     owner: User,
 }
+export interface MdDocumentPatch {
+    title: string,
+    text: string,
+}
 
 export interface User {
     id: string,

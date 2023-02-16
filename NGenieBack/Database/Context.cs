@@ -1,6 +1,7 @@
 ﻿using Bogus;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Sqlite;
+using Microsoft.OData.ModelBuilder;
 using NGenieBack.Auth;
 using NGenieBack.Database.Models;
 using SQLitePCL;
@@ -51,7 +52,21 @@ public class Context : DbContext
             .GenerateBetween(40, 60);
 
         var teachers = users.Where(u => u.Roles.HasFlag(UserRole.Teacher)).ToList();
+
+        string[] files = Directory.GetFiles("files/").ToArray();
+        var iter = files.AsEnumerable().GetEnumerator();
+
+        var documents = new Faker<Document>(LOCALE)
+            .RuleFor(u => u.Id, f => Guid.NewGuid())
+            .RuleFor(d => d.OwnerId, (f, d) => f.PickRandom(teachers).Id)
+            .RuleFor(d => d.Title, f => { iter.MoveNext(); return Path.GetFileNameWithoutExtension(iter.Current); })
+            .RuleFor(d => d.Text, f => File.ReadAllText(iter.Current));
+            //.RuleFor(d => d.Class)  // null
+            //.RuleFor(d => d.OrderInClass)  // 0
+
+
         modelBuilder.Entity<User>().HasData(users);
+        modelBuilder.Entity<Document>().HasData(documents);
     }
 
 }

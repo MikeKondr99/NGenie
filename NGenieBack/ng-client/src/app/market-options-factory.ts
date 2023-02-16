@@ -9,10 +9,10 @@ export function markedOptionsFactory(): MarkedOptions {
     if(text.startsWith("file:")) {
       console.log(text);
       let txt = text.substring(5)
-      return `<p class="outline outline-sky-200 rounded-md bg-sky-50 pl-5 py-3 mb-4">
+      return `<p class="rounded-md bg-gray-50 h-16 flex flex-row items-center">
           <a href="${href}" class="no-underline"> 
-            <img class="w-8 h-8 m-0" src="https://cdn-icons-png.flaticon.com/512/1088/1088537.png"/>
-          <span href="${href}" class="text-lg underline">${txt}</span>
+            <img class="rounded-tl-md rounded-bl-md w-16 h-16 m-0" src="${href}" alt=" "/>
+            <span href="${href}" class="ml-3 text-lg underline">${txt}</span>
           </a>
       </p>`;
 

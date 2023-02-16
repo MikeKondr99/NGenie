@@ -6,6 +6,8 @@ using FluentValidation.AspNetCore;
 using NGenieBack.Repositories;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using System.Text;
+using NGenieBack.Database.Requests;
+using NGenieBack.Database.Models;
 
 namespace NGenieBack.Controllers;
 
@@ -33,15 +35,9 @@ public class DocumentsController : Controller
     }
 
     [HttpPatch("{id}")]
-    public async Task<IActionResult> PatchAsync([FromRoute] Guid id, [FromBody] object o)
+    public async Task<IActionResult> PatchAsync([FromRoute] Guid id, [FromBody] UpdateDocument o)
     {
-        throw new NotImplementedException();
-        //if(await _repos.GetAsync(id) is Document doc)
-        //{
-        //    return Ok(await _repos.UpdateAsync(o.Patch(doc))).Or(NotFound());
-        //}
-        //return NotFound();
-
+        return Ok(await _repos.UpdateAsync(id,o)).Or(NotFound());
     }
 
     [HttpDelete("{id}")]

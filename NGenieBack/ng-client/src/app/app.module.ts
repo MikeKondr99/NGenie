@@ -26,6 +26,7 @@ import {NzInputModule} from "ng-zorro-antd/input";
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
   import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { markedOptionsFactory } from './market-options-factory';
+import { DocumentViewComponent } from './document-view/document-view.component';
 
 registerLocaleData(ru);
 
@@ -34,6 +35,7 @@ registerLocaleData(ru);
     AppComponent,
     NavbarComponent,
     DocumentComponent,
+    DocumentViewComponent,
     UserBadgeComponent,
   ],
   imports: [

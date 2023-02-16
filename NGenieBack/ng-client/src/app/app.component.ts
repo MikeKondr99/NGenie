@@ -4,9 +4,8 @@ import { Component } from '@angular/core';
   selector: 'app-root',
   templateUrl: './app.component.html',
   host: {
-    class: 'flex h-full'
+    class: ''
   }
 })
 export class AppComponent {
-  isCollapsed = false;
 }
