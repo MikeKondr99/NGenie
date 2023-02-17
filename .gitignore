@@ -363,3 +363,5 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 /NGenieBack/db.sqlite
+/NGenieBack/db.sqlite-shm
+/NGenieBack/db.sqlite-wal
