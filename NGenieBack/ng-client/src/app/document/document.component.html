@@ -33,7 +33,7 @@
                 <span nz-icon nzType="arrow-left" nzTheme="outline"></span>
             </button>
         </a>
-        <button nz-tooltip nzTooltip nzTooltipPlacement="right" nzTooltipTitle="Сохранить" class="ant-btn-icon-only"
+        <button nz-tooltip nzTooltip nzTooltipPlacement="right" nzTooltipTitle="Сохранить"  class="ant-btn-icon-only"
             nz-button nzType="primary" nzSize="large" nzShape="circle">
             <span class="flex" nz-icon nzType="download" nzTheme="outline"></span>
         </button>
@@ -43,7 +43,7 @@
                 <span nz-icon nzType="upload" nzTheme="outline"></span>
             </button>
         </nz-upload>
-        <button [nzLoading]="saving" (click)="save()" nz-tooltip nzTooltip nzTooltipPlacement="right" nzTooltipTitle="Сохранить" class="ant-btn-icon-only"
+        <button [nzLoading]="saving" (click)="save()" nz-tooltip nzTooltip nzTooltipPlacement="right" [disabled]="saved || saving" nzTooltipTitle="Сохранить" class="ant-btn-icon-only"
             nz-button nzType="primary" nzSize="large" nzShape="circle">
             <span nz-icon nzType="save" nzTheme="outline"></span>
         </button>
@@ -55,6 +55,7 @@
                 [data]="document.text"
                 katex 
                 emoji 
+                lineNumbers
                 mermaid
                 clipboard>
             </markdown>
@@ -62,6 +63,7 @@
     </div>
     <div [ngClass]="{'hidden':!editMode}" class="flex-1 max-w-3xl xl:block mx-6 shadow-xl">
         <textarea style="height: 100%" 
+            (input)="saved=false"
             [(ngModel)]="document.text" 
             nz-input
             class="resize-none text-[1.1rem] pb-60 pl-3">

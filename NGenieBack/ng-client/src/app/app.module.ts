@@ -27,6 +27,7 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
   import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { markedOptionsFactory } from './market-options-factory';
 import { DocumentViewComponent } from './document-view/document-view.component';
+import { ExitDocumentGuard } from './document/document-exit.guard';
 
 registerLocaleData(ru);
 
@@ -64,7 +65,8 @@ registerLocaleData(ru);
     NzInputModule,
   ],
   providers: [
-    { provide: NZ_I18N, useValue: ru_RU }
+    ExitDocumentGuard,
+    { provide: NZ_I18N, useValue: ru_RU, }
   ],
   bootstrap: [AppComponent]
 })

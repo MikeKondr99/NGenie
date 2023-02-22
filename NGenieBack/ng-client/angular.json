@@ -34,7 +34,8 @@
               "src/styles.css",
               "src/assets/prism-theme.css",
               "node_modules/katex/dist/katex.min.css",
-              "node_modules/prismjs/plugins/command-line/prism-command-line.css"
+              "node_modules/prismjs/plugins/command-line/prism-command-line.css",
+              "node_modules/prismjs/plugins/line-numbers/prism-line-numbers.css"
             ],
             "scripts": [
               "node_modules/marked/marked.min.js",
@@ -43,6 +44,10 @@
 
               "node_modules/prismjs/components/prism-csharp.min.js",
               "node_modules/prismjs/components/prism-css.min.js",
+              "node_modules/prismjs/components/prism-c.min.js",
+              "node_modules/prismjs/components/prism-cpp.min.js",
+              "node_modules/prismjs/components/prism-sql.min.js",
+              "node_modules/prismjs/components/prism-javascript.min.js",
               "node_modules/prismjs/components/prism-python.min.js",
               "node_modules/prismjs/components/prism-rust.min.js",
               "node_modules/prismjs/components/prism-bnf.min.js",
@@ -50,6 +55,7 @@
               "node_modules/prismjs/components/prism-powershell.min.js",
               "node_modules/prismjs/components/prism-toml.min.js",
 
+              "node_modules/prismjs/plugins/line-numbers/prism-line-numbers.js",
               "node_modules/prismjs/plugins/command-line/prism-command-line.js",
 
               "node_modules/katex/dist/katex.min.js",

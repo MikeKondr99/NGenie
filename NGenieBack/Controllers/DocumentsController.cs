@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Infrastructure;
 using System.Text;
 using NGenieBack.Database.Requests;
 using NGenieBack.Database.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace NGenieBack.Controllers;
 
@@ -24,7 +25,7 @@ public class DocumentsController : Controller
     [HttpGet("{id}")]
     public async Task<IActionResult> GetAsync(Guid id)
     {
-        return Ok(await _repos.GetAsync(id)).Or(NotFound());
+        return Ok(await _repos.GetAsync(id, t => t.Include(d => d.Owner))).Or(NotFound());
     }
 
     [HttpPost]

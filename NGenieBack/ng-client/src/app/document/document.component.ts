@@ -17,6 +17,8 @@ export class DocumentComponent {
 
   declare id: string;
   declare document: MdDocument;
+  saving: boolean = false;
+  saved: boolean = true;
 
   constructor(
     public readonly docs: DocumentService,
@@ -31,8 +33,6 @@ export class DocumentComponent {
     })
   }
 
-  html: string = ''
-  saving: boolean = false;
 
   toggleEdit() {
     this.editMode = !this.editMode;
@@ -48,6 +48,7 @@ export class DocumentComponent {
         next: (x) => {
           this.document = x;
           this.saving = false;
+          this.saved = true;
       }})
     }
   }
