@@ -14,7 +14,7 @@ export interface User {
     roles: UserRole[],
     firstName: string,
     lastName: string,
-    avatar: string | null
+    avatar: string | undefined
 }
 
 export enum UserRole {

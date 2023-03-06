@@ -25,7 +25,7 @@
 <div *ngIf="document" class="flex flex-col md:flex-row h-full">
     <div class="bg-white mb-2 md:sticky top-32 h-fit p-2 rounded-tr-2xl rounded-br-2xl flex flex-grow-0 w-fit mr-2 md:flex-col gap-1">
         <a [routerLink]="['/doc/edit', id]">
-            <button nz-tooltip nzTooltip nzTooltipPlacement="right" nzTooltipTitle="Назад к документу"
+            <button nz-tooltip nzTooltip nzTooltipPlacement="right" nzTooltipTitle="Редактировать"
                 class="ant-btn-icon-only" nz-button nzType="primary" nzSize="large" nzShape="circle">
                 <span nz-icon nzType="edit" nzTheme="outline"></span>
             </button>
@@ -43,8 +43,9 @@
     </div>
     <div class="px-6 py-12 bg-white shadow-xl w-full shadow-slate-700/10 mt-0 ring-gray-900/5 md:max-w-3xl md:mx-auto lg:max-w-4xl lg:pt-16 lg:pb-28 my-20 min-h-[75vh]">
             <div class="max-w-prose mx-auto">
-                <app-user-badge></app-user-badge>
-                <markdown class="prose lg:text-lg w-prose" katex emoji mermaid [data]="document.text"></markdown>
+                <app-user-badge [user]="document.owner"></app-user-badge>
+                <div class="h-10"></div>
+                <markdown class="prose text-lg" katex lineNumbers emoji mermaid [data]="document.text"></markdown>
             </div>
     </div>
 </div>

@@ -8,11 +8,18 @@ namespace NGenieBack.Repositories;
 
 public record class BaseRepository<T,TKey>(Context Context,DbSet<T> Table)
     where T : class, IHasKey<TKey>
+    where TKey : IComparable<TKey>
 {
 
-    public async Task<T?> GetAsync(TKey id)
+    private IQueryable<T> qDefault(DbSet<T> table)
     {
-        return await Table.FindAsync(id);
+        return table;
+    }
+    public async Task<T?> GetAsync(TKey id,Func<DbSet<T>,IQueryable<T>>? q = null)
+    {
+        if (q == null) 
+            q = qDefault;
+        return await q(Table).FirstAsync(x => x.Id.Equals(id));
     }
 
     public async Task<T?> CreateAsync(ICreateData<T> req)
@@ -23,7 +30,7 @@ public record class BaseRepository<T,TKey>(Context Context,DbSet<T> Table)
 
     public async Task<T?> CreateAsync(T obj)
     {
-        if (await Table.FindAsync(obj.Id) is null)
+        if (await Table.FindAsync(obj.Id) is T ent)
         {
             await Table.AddAsync(obj);
             return obj;

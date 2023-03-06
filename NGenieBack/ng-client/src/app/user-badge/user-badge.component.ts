@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { User } from '../types';
 
 @Component({
   selector: 'app-user-badge',
@@ -7,4 +8,6 @@ import { Component } from '@angular/core';
 })
 export class UserBadgeComponent {
 
+  @Input()
+  declare user: User 
 }

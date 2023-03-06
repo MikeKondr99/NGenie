@@ -18,6 +18,7 @@ export class DocumentComponent {
   declare document: MdDocument;
   editMode: boolean = true;
   saving: boolean = false;
+  saved: boolean = true;
 
   constructor(
     public readonly docs: DocumentService,
@@ -38,7 +39,7 @@ export class DocumentComponent {
         text: doc.text,
       })
       this.saving = false;
+      this.saved = true;
     }
   }
-
 }
