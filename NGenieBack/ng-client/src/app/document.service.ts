@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { firstValueFrom, map, tap} from 'rxjs';
+import { firstValueFrom, map, retry, takeUntil, tap, timeout} from 'rxjs';
 import { MdDocument, MdDocumentPatch } from './types';
 
 @Injectable({
@@ -10,11 +10,19 @@ export class DocumentService {
 
   constructor(private http: HttpClient) { }
 
-  get(guid:string) {
-    return this.http.get<MdDocument>(`https://localhost:7020/api/docs/${guid}`)
+  async get(guid:string): Promise<MdDocument>{
+    return await firstValueFrom(this.http.get<MdDocument>(`https://localhost:7020/api/docs/${guid}`)
+      .pipe(
+        timeout(10000),
+        retry(3)
+    ));
   }
 
-  patch(guid:string,body: MdDocumentPatch) {
-    return this.http.patch<MdDocument>(`https://localhost:7020/api/docs/${guid}`,body)
+  async patch(guid:string,body: MdDocumentPatch): Promise<MdDocument> {
+    return await firstValueFrom(this.http.patch<MdDocument>(`https://localhost:7020/api/docs/${guid}`,body)
+      .pipe(
+        timeout(10000),
+        retry(3)
+    ));
   }
 }

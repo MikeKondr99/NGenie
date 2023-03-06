@@ -1,7 +1,7 @@
 import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { async, asyncScheduler, filter, map, Observable } from 'rxjs';
+import { async, asyncScheduler, filter, firstValueFrom, map, Observable } from 'rxjs';
 import { DocumentService } from '../document.service';
 import { MdDocument } from '../types';
 
@@ -15,42 +15,31 @@ import { MdDocument } from '../types';
 })
 export class DocumentComponent {
 
-  declare id: string;
   declare document: MdDocument;
+  editMode: boolean = true;
   saving: boolean = false;
   saved: boolean = true;
 
   constructor(
     public readonly docs: DocumentService,
     private readonly route: ActivatedRoute
-  ) {
-    route.paramMap.pipe(map(params => params.get('id') as string)).subscribe({
-      next: (id) => {
-        this.id = id;
-        this.docs.get(id).pipe().subscribe({
-        next: (x) => this.document = x })
-      }
-    })
+  ) { }
+
+  public async ngOnInit() {
+    let id = await firstValueFrom(this.route.paramMap.pipe(map(params => params.get('id') as string)));
+    this.document = await this.docs.get(id);
   }
 
-
-  toggleEdit() {
-    this.editMode = !this.editMode;
-  }
-
-  save() {
-    if(this.document) {
+  async save() {
+    let doc = this.document
+    if(doc) {
       this.saving = true;
-      this.docs.patch(this.id,{ 
-        title:this.document.title,
-        text:this.document.text
-      }).subscribe({
-        next: (x) => {
-          this.document = x;
-          this.saving = false;
-          this.saved = true;
-      }})
+      doc = await this.docs.patch(doc.id,{
+        title: doc.title,
+        text: doc.text,
+      })
+      this.saving = false;
+      this.saved = true;
     }
   }
-  editMode: boolean = true;
 }
