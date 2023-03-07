@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NGenieBack.Controllers;
 using NGenieBack.Database;
-using NGenieBack.Database.Models;
 using NGenieBack.Database.Requests;
 
 namespace NGenieBack.Repositories;
@@ -11,14 +10,14 @@ public record class BaseRepository<T,TKey>(Context Context,DbSet<T> Table)
     where TKey : IComparable<TKey>
 {
 
-    private IQueryable<T> qDefault(DbSet<T> table)
+    private IQueryable<T> Default(DbSet<T> table)
     {
         return table;
     }
     public async Task<T?> GetAsync(TKey id,Func<DbSet<T>,IQueryable<T>>? q = null)
     {
         if (q == null) 
-            q = qDefault;
+            q = Default;
         return await q(Table).FirstAsync(x => x.Id.Equals(id));
     }
 
@@ -60,10 +59,4 @@ public record class BaseRepository<T,TKey>(Context Context,DbSet<T> Table)
         }
         return null;
     }
-}
-
-public record class DocumentRepository(Context Context) 
-    : BaseRepository<Document,Guid>(Context, Context.Documents)
-{
-
 }

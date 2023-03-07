@@ -1,5 +1,4 @@
-﻿using NGenieBack.Database;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using FluentValidation.AspNetCore;
@@ -23,12 +22,14 @@ public class DocumentsController : Controller
 
 
     [HttpGet("{id}")]
+    [Authorize]
     public async Task<IActionResult> GetAsync(Guid id)
     {
         return Ok(await _repos.GetAsync(id, t => t.Include(d => d.Owner))).Or(NotFound());
     }
 
     [HttpPost]
+    [Authorize]
     public async Task<IActionResult> PostAsync([FromBody] object o)
     {
         throw new NotImplementedException();
@@ -36,12 +37,14 @@ public class DocumentsController : Controller
     }
 
     [HttpPatch("{id}")]
+    [Authorize]
     public async Task<IActionResult> PatchAsync([FromRoute] Guid id, [FromBody] UpdateDocument o)
     {
-        return Ok(await _repos.UpdateAsync(id,o)).Or(NotFound());
+        return Ok(await _repos.UpdateAsync(id, o)).Or(NotFound());
     }
 
     [HttpDelete("{id}")]
+    [Authorize]
     public async Task<IActionResult> DeleteAsync([FromRoute] Guid id)
     {
         return Ok(await _repos.DeleteAsync(id)).Or(NotFound());

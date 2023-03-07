@@ -47,9 +47,24 @@ public class Context : DbContext
                 f.Internet.Password(
                     f.Random.Number(8, 25), // Длина пароля
                     f.Random.Bool(0.3f)),  // Запоминающийся 30%
-                u.PasswordSalt))
+                u.PasswordSalt
+             ))
             .RuleFor(u => u.Roles, f => f.PickRandom(new UserRole[] {UserRole.Teacher,UserRole.Student}))
             .GenerateBetween(40, 60);
+
+        var pass = "qwerty123";
+        var salt = PasswordHashing.GenSalt();
+        var hash = PasswordHashing.HashString(pass,salt);
+        users.Add(new User
+        {
+            Id="AdminMike",
+            FirstName = "Михаил",
+            LastName = "Кондратьев",
+            Avatar = "https://www.google.com/url?sa=i&url=http%3A%2F%2Ft1.gstatic.com%2Flicensed-image%3Fq%3Dtbn%3AANd9GcS_9i-kxwPsZenCXAF1NkQSwbd5pHXR3usdHV3YxvkMxSJn3DZd6T_kMEtLiW63fvAPsa3JqHPgFagNHyE&psig=AOvVaw0VrQhShPm4TFpWDCZ0mklj&ust=1678202500103000&source=images&cd=vfe&ved=0CA0QjRxqFwoTCJiEo9DNx_0CFQAAAAAdAAAAABAE",
+            PasswordHash = hash,
+            PasswordSalt = salt,
+            Roles = UserRole.Student | UserRole.Admin,
+        });
 
         var teachers = users.Where(u => u.Roles.HasFlag(UserRole.Teacher)).ToList();
 

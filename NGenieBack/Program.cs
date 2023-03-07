@@ -41,6 +41,7 @@ services.AddFluentValidationAutoValidation();
 //services.AddValidatorsFromAssemblyContaining<UsernameValidator>();
 
 services.AddScoped<DocumentRepository>();
+services.AddScoped<UserRepository>();
 // !Build
 // ----------------------------
 var app = builder.Build();

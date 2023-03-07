@@ -8,26 +8,43 @@ using NGenieBack.Database;
 using Microsoft.AspNetCore.OData.Routing.Controllers;
 using Microsoft.AspNetCore.OData.Query;
 using NGenieBack.Database.Models;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
+using NGenieBack.Repositories;
 
 namespace NGenieBack.Controllers;
 
 [Route("api/auth")]
 public class AuthController : Controller
 {
+    private readonly UserRepository _users;
+    public AuthController(UserRepository users)
+    {
+        _users = users;
+    }
+
+    [HttpGet]
+    [Authorize]
+    public async Task<ActionResult<User>> GetUserAsync()
+    {
+        var name = User.Claims.First(c => c.Type == ClaimTypes.NameIdentifier).Value;
+        return Ok(await _users.GetAsync(name));
+    }
+
     [HttpPost]
-    public ActionResult<string> CreateToken (
+    [AllowAnonymous]
+    public ActionResult<string> CreateToken(
         [FromBody] AuthenticationRequest authRequest,
         [FromServices] IJwtSigningEncodingKey signingEncodingKey,
         [FromServices] Context context
     )
     {
         var u = context.Users.Find(authRequest.Username);
-        if (u is not User user) 
+        if (u is not User user)
             return Unauthorized();
 
         var hash = PasswordHashing.HashString(authRequest.Password, user.PasswordSalt);
 
-        if (hash != user.PasswordHash) 
+        if (hash != user.PasswordHash)
             return Unauthorized();
 
         // Генерируем JWT.
@@ -39,7 +56,7 @@ public class AuthController : Controller
             issuer: "DemoApp",
             audience: "DemoAppClient",
             claims: claims,
-            expires: DateTime.Now.AddMinutes(5),
+            expires: DateTime.Now.AddMinutes(30),
             signingCredentials: new SigningCredentials(
                     signingEncodingKey.GetKey(),
                     signingEncodingKey.SigningAlgorithm)
